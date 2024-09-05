@@ -17,7 +17,8 @@ Canteen Automation is a web-based food ordering platform designed to simplify th
 - **Others**: JavaScript, HTML, CSS
 
 ## Screenshots
-![image](https://github.com/user-attachments/assets/c2aeb4d6-1b92-4b43-81b0-e2d697356218)
+![image](https://github.com/user-attachments/assets/cf27daf0-2514-42c6-9f3e-b2db2bcdcec4)
+
 
 ## Installation
 
