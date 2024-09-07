@@ -19,7 +19,8 @@ function App() {
     {
       path: "/",
       element: <><Welcome /></>,
-    },{
+    },
+    {
       path: "/Welcome",
       element: <><Welcome /></>,
     },
@@ -65,4 +66,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

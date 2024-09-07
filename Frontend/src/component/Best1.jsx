@@ -1,12 +1,12 @@
 import React from 'react';
-import Link from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Best1 = () => {
   return (
-    <Link to="/GeneralCanteen"><div className="relative w-80 rounded-3xl transition-transform transform hover:scale-95 overflow-hidden shadow-lg">
+    <div className="relative w-80 rounded-3xl transition-transform transform hover:scale-95 overflow-hidden shadow-lg">
       {/* Background Image */}
-      <img src="https://i.pinimg.com/564x/ef/8d/59/ef8d59468072c08c94ece6bc14356f7d.jpg"
-        alt="Schezwan Fried Rice" className="w-full h-56 object-cover"/>
+      <Link to='/GeneralCanteen'><img src="https://i.pinimg.com/564x/ef/8d/59/ef8d59468072c08c94ece6bc14356f7d.jpg"
+        alt="Schezwan Fried Rice" className="w-full h-56 object-cover"/></Link>
 
       {/* Overlay */}
       <div className="absolute inset-0 top-36 bg-white"></div>
@@ -20,7 +20,7 @@ const Best1 = () => {
           <span className='text-[#9796A1]'>(100+)</span></h5>
       </div>
       
-    </div></Link>
+    </div>
   );
 };
 

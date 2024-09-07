@@ -14,7 +14,7 @@ function Verify() {
             <input className='p-5 mt-4 bg-[#FFFFFF] rounded-2xl w-96 drop-shadow-md' placeholder='Enter OTP' type='password'></input>
             <p className='text-center text-[#5B5B5E] mt-4'>Re-send OTP</p>
 
-            <Link to="/Notification"><button className='p-5 mt-8 bg-[#FE724C] rounded-2xl w-96 drop-shadow-md' type='submit'>
+            <Link to="/Home"><button className='p-5 mt-8 bg-[#FE724C] rounded-2xl w-96 drop-shadow-md' type='submit'>
                 <h1 className='text-center text-white font-medium text-lg'>VERIFY OTP</h1>
             </button></Link>
         </Form>
