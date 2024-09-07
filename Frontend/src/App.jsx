@@ -1,10 +1,13 @@
 import React from 'react';
-import Welcome from './component/Welcome';
-import Register from './component/Register';
-import Login from './component/Login';
-import Verify from './component/Verify';
-import Notification from './component/Notification';
-import Home from './component/Home';
+import Welcome from './Pages/Welcome';
+import Register from './Pages/Register';
+import Login from './Pages/Login';
+import Verify from './Pages/Verify';
+import Notification from './Pages/Notification';
+import Home from './Pages/Home';
+import Profile from './Pages/Profile';
+import EditProfile from './Pages/EditProfile';
+import GeneralCanteen from './Pages/GeneralCanteen';
 
 import LocomotiveScroll from 'locomotive-scroll';
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
@@ -39,6 +42,18 @@ function App() {
     {
       path: "/Home",
       element: <><Home/></>,
+    },    
+    {
+      path: "/Profile",
+      element: <><Profile/></>,
+    },   
+    {
+      path: "/EditProfile",
+      element: <><EditProfile/></>,
+    },    
+    {
+      path: "/GeneralCanteen",
+      element: <><GeneralCanteen/></>,
     },
   ]);
 
