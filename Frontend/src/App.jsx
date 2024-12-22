@@ -1,69 +1,93 @@
-import React from 'react';
-import Welcome from './Pages/Welcome';
-import Register from './Pages/Register';
-import Login from './Pages/Login';
-import Verify from './Pages/Verify';
-import Notification from './Pages/Notification';
-import Home from './Pages/Home';
-import Profile from './Pages/Profile';
-import EditProfile from './Pages/EditProfile';
-import GeneralCanteen from './Pages/GeneralCanteen';
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LocomotiveScroll from 'locomotive-scroll';
-import {createBrowserRouter,RouterProvider} from "react-router-dom";
+import Welcome from "./Auth/Welcome";
+import Register from "./Auth/Register";
+import Login from "./Auth/Login";
+import Verification from "./Auth/Verification";
+import Notification from "./Auth/Notification";
 
-function App() {
+import Home from "./Pages/Home";
+import Profile from "./Pages/Profile";
+import Cart from "./Pages/Cart";
+import NotFound from "./component/Notfound";
+import Order from "./Pages/Order";
 
-  const locomotiveScroll = new LocomotiveScroll();
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <><Welcome /></>,
-    },
-    {
-      path: "/Welcome",
-      element: <><Welcome /></>,
-    },
-    {
-      path: "/Register",
-      element: <><Register/></>,
-    },
-    {
-      path: "/Login",
-      element: <><Login/></>,
-    },
-    {
-      path: "/Verify",
-      element: <><Verify/></>,
-    },
-    {
-      path: "/Notification",
-      element: <><Notification/></>,
-    },
-    {
-      path: "/Home",
-      element: <><Home/></>,
-    },    
-    {
-      path: "/Profile",
-      element: <><Profile/></>,
-    },   
-    {
-      path: "/EditProfile",
-      element: <><EditProfile/></>,
-    },    
-    {
-      path: "/GeneralCanteen",
-      element: <><GeneralCanteen/></>,
-    },
-  ]);
+import AuthLayout from "./Layouts/AuthLayout";
+import MainLayout from "./Layouts/MainLayout";
+import MobileLayout from "./Layouts/MobileLayout";
+import OrderHistory from "./Pages/OrderHistory";
+// import AdminPanel from "../Dashboard/src/pages/Dashboard";
+
+export default function App() {
+  // Cart state to store added items
+  const [cart, setCart] = useState([]);
+
+  // Function to add an item to the cart
+  const addToCart = (item) => {
+    setCart((prevCart) => {
+      const existingItemIndex = prevCart.findIndex(
+        (cartItem) => cartItem.title === item.title
+      );
+      if (existingItemIndex === -1) {
+        return [...prevCart, item];
+      } else {
+        const updatedCart = [...prevCart];
+        updatedCart[existingItemIndex].quantity += item.quantity;
+        return updatedCart;
+      }
+    });
+  };
+
+  // Function to delete an item from the cart
+  const deleteFromCart = (title) => {
+    setCart((prevCart) => prevCart.filter((item) => item.title !== title));
+  };
+
+  // Function to update the quantity of an item in the cart
+  const updateQuantity = (title, newQuantity) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.title === title ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
 
   return (
-    <div className='w-full min-h-screen bg-[#F1F1F1] text-black'>
-        <RouterProvider router={router} />
-    </div>
-    
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        {/* Auth Pages (No Navbar/Footer) */}
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verification" element={<Verification />} />
+          <Route path="/notification" element={<Notification />} />
+        </Route>
 
-export default App;
+        {/* Main Pages (With Navbar/Footer) */}
+        <Route element={<MainLayout />}>
+        <Route path="/Home" element={<Home />} /> 
+        </Route>
+
+        {/* Main Pages (With Navbar) */}
+        <Route element={<MobileLayout />}>
+          <Route path="/Home" element={<Home />} />         
+          <Route path="/orders" element={<Order />} />
+          <Route path="/orderhistory" element={<OrderHistory />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/cart" element={<Cart 
+                  cart={cart}
+                  deleteFromCart={deleteFromCart}
+                  updateQuantity={updateQuantity}/>}/>
+
+                  {/* dashboard */}
+          {/* <Route path="/dashboard" element={<AdminPanel />} /> */}
+        </Route>
+
+        {/* 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
