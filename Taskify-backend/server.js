@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const Task = require('./models/Task'); // Assuming Task is the Mongoose model
 
 // CORS Configuration (allow requests from frontend)
-app.use(cors());
+// app.use(cors());
+app.use(cors({ origin: 'https://taskify-backend-9xgd.onrender.com' }));
 app.use(express.json()); // to parse JSON requests
   
 // Routes
