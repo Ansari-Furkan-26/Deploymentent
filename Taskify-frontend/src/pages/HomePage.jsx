@@ -14,7 +14,7 @@ const HomePage = () => {
       const response = await api.get('/api/tasks');
       setTasks(response.data);
     } catch (error) {
-      console.error('Error fetching tasks:', error.message);
+      console.error('Error fetching tasks:', error);
     }
   };
 
