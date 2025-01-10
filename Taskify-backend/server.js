@@ -80,8 +80,6 @@ app.delete('/api/tasks/:id', async (req, res) => {
 
 // Start server
 mongoose.connect('mongodb+srv://ansarifurkanabcd786:F7ciQWNoa0SRh45S@cluster0.k7ydl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     serverSelectionTimeoutMS: 10000, // Adjust the timeout for the connection
     socketTimeoutMS: 45000, // Adjust socket timeout (in ms)
   }).then(() => {
