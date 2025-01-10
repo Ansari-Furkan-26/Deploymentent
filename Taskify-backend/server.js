@@ -14,6 +14,10 @@ app.use(cors({
 app.use(express.json()); // to parse JSON requests
   
 // Routes
+// Simple GET route that sends a "Hey" message
+app.get('/api/get', (req, res) => {
+    res.json({ message: 'Hey' });
+  });
 
 // Fetch tasks
 app.get('/api/tasks', async (req, res) => {
