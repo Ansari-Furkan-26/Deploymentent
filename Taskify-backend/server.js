@@ -8,6 +8,10 @@ const Task = require('./models/Task'); // Assuming Task is the Mongoose model
 app.use(cors());
 app.use(express.json()); // to parse JSON requests
 
+app.get('/ping', (req, res) => {
+    res.send('Server is alive');
+  });
+  
 // Routes
 
 // Fetch tasks
@@ -70,9 +74,6 @@ app.delete('/api/tasks/:id', async (req, res) => {
 // 
 
 // Start server
-mongoose.connect('mongodb+srv://ansarifurkanabcd786:F7ciQWNoa0SRh45S@cluster0.k7ydl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
- { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    app.listen(5000, () => console.log('MongoDB Connected Succefully'));
-  })
-  .catch(err => console.log(err));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
