@@ -1,53 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// HomePage.jsx
+import React, { useEffect, useState } from 'react';
+import api from '../utils/api'; // Assuming you've set up an api utility
 import TaskForm from '../components/TaskForm';
 import TaskList from '../components/TaskList';
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-function HomePage() {
+const HomePage = () => {
   const [tasks, setTasks] = useState([]);
+  const [taskTitle, setTaskTitle] = useState('');
 
-  // Fetch all tasks from the backend
+  // Fetch tasks from API
+  const fetchTasks = async () => {
+    try {
+      const response = await api.get('/api/tasks');
+      setTasks(response.data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error.message);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/api/tasks`);
-      setTasks(response.data);
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-    }
-  };
-  
-  
-
+  // Add a task
   const addTask = async (taskTitle) => {
+    if (!taskTitle.trim()) return; // Prevent submitting an empty title
     try {
-      await axios.post('http://localhost:5000/api/tasks', { title: taskTitle });
-      fetchTasks();
+      await api.post('/api/tasks', { title: taskTitle });
+      setTaskTitle(''); // Reset input after successful add
+      fetchTasks(); // Fetch updated tasks
     } catch (error) {
-      console.error('Error adding task:', error);
+      console.error('Error adding task:', error.message);
     }
   };
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${taskId}`);
+      await api.delete(`/api/tasks/${taskId}`);
       fetchTasks();
     } catch (error) {
-      console.error('Error deleting task:', error);
+      console.error('Error deleting task:', error.message);
+    }
+  };
+
+  const updateTask = async (taskId, updatedTitle) => {
+    try {
+      await api.put(`/api/tasks/${taskId}`, { title: updatedTitle });
+      fetchTasks();
+    } catch (error) {
+      console.error('Error updating task:', error.message);
     }
   };
 
   return (
     <div className="max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">Taskify</h1>
-      <TaskForm onAddTask={addTask} />
-      <TaskList tasks={tasks} onDeleteTask={deleteTask} />
+      <h1 className="text-lg font-semibold text-center mb-4">Taskify</h1>
+      {/* Pass addTask as a prop to TaskForm */}
+      <TaskForm taskTitle={taskTitle} setTaskTitle={setTaskTitle} onAddTask={addTask} />
+      {/* Pass deleteTask and updateTask as props to TaskList */}
+      <TaskList tasks={tasks} onDeleteTask={deleteTask} onUpdateTask={updateTask} />
     </div>
   );
-}
+};
 
 export default HomePage;
