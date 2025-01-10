@@ -52,16 +52,6 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      api.get('/ping') // Ping the server to keep it alive
-        .then((response) => console.log('Ping response:', response.data))
-        .catch((error) => console.error('Error pinging the server:', error));
-    }, 30000); // 30 seconds interval
-
-    return () => clearInterval(interval); // Clean up interval on component unmount
-  }, []);
-
   return (
     <div className="max-w-md mx-auto p-4">
       <h1 className="text-lg font-semibold text-center mb-4">Taskify</h1>

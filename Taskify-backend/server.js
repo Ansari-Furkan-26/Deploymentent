@@ -7,10 +7,6 @@ const Task = require('./models/Task'); // Assuming Task is the Mongoose model
 // CORS Configuration (allow requests from frontend)
 app.use(cors());
 app.use(express.json()); // to parse JSON requests
-
-app.get('/ping', (req, res) => {
-    res.send('Server is alive');
-  });
   
 // Routes
 
@@ -76,4 +72,3 @@ app.delete('/api/tasks/:id', async (req, res) => {
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
