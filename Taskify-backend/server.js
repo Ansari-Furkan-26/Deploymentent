@@ -7,13 +7,13 @@ const Task = require('./models/Task'); // Assuming Task is the Mongoose model
 // CORS Configuration (allow requests from frontend)
 // app.use(cors());
 app.use(cors({
-    origin: '*', // Your frontend domain
+    // origin: '*', // Your frontend domain
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   }));
 app.use(express.json()); // to parse JSON requests
   
-// Routes
+
 // Simple GET route that sends a "Hey" message
 app.get('/api/get', (req, res) => {
     res.json({ message: 'Hey' });
