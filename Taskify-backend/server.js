@@ -79,5 +79,13 @@ app.delete('/api/tasks/:id', async (req, res) => {
 // 
 
 // Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose.connect('your_mongo_connection_string', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000, // Adjust the timeout for the connection
+    socketTimeoutMS: 45000, // Adjust socket timeout (in ms)
+  }).then(() => {
+    console.log('Connected to MongoDB');
+  }).catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
